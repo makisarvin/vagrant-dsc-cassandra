@@ -10,6 +10,9 @@ curl -L http://downloads.datastax.com/community/dsc-cassandra-2.0.9-bin.tar.gz |
 sudo mkdir /var/lib/cassandra
 sudo mkdir /var/log/cassandra
 
+# change address from localhost to 0.0.0.0 so that we can connect to cassandra remotely
+sudo sed -i 's/^rpc_address: localhost/rpc_address: 0.0.0.0/' /home/vagrant/dsc-cassandra-2.0.9/conf/cassandra.yaml
+
 sudo ./dsc-cassandra-2.0.9/bin/cassandra
 
 while netstat -lnt | awk '$4 ~ /:9160$/ {exit 1}'; do sleep 10; done
